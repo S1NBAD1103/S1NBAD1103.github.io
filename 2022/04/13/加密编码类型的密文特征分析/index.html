@@ -24,8 +24,11 @@
 <meta property="og:description" content="加密编码类型的密文特征分析MD5、sha1、HMAC算法、NTLM等相似加密类型（哈希算法型）     MD5--示例：17722ac8b4755df0810f793439fe663f         一般MD5 32位的值是由“0-9”和“a-f”组成的三十二位字符串（超出这个范围的就是错误的MD5值就没要拿去解码了）         MD5的特征                      确定">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/blog/HMAC.PNG">
+<meta property="og:image" content="http://example.com/img/blog/c9ozt8bjbv.png">
+<meta property="og:image" content="http://example.com/img/blog/pighole.PNG">
+<meta property="og:image" content="http://example.com/img/blog/quoted-printable.PNG">
 <meta property="article:published_time" content="2022-04-13T11:34:07.000Z">
-<meta property="article:modified_time" content="2022-04-13T12:13:20.845Z">
+<meta property="article:modified_time" content="2022-04-13T13:26:54.547Z">
 <meta property="article:author" content="s1nb4d">
 <meta property="article:tag" content="encryption">
 <meta name="twitter:card" content="summary_large_image">
@@ -213,7 +216,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3.3k 字
+          7.2k 字
         
       </span>
     
@@ -225,7 +228,7 @@
         
         
           <!-- compatible with older versions-->
-          28 分钟
+          60 分钟
         
       </span>
     
@@ -647,8 +650,91 @@ Base58包含了阿拉伯数字、小写英文字母，大写英文字母。
 
 <h2 id="AES、DES、RC4、Rabbit、Triple-DES（3DES）"><a href="#AES、DES、RC4、Rabbit、Triple-DES（3DES）" class="headerlink" title="AES、DES、RC4、Rabbit、Triple DES（3DES）"></a>AES、DES、RC4、Rabbit、Triple DES（3DES）</h2><p>这些都是非对称性加密算法，就是引入了密钥，密文特征与Base64类似</p>
 
+<h2 id="Unicode、HTML实体编码、16进制Unicode"><a href="#Unicode、HTML实体编码、16进制Unicode" class="headerlink" title="Unicode、HTML实体编码、16进制Unicode"></a>Unicode、HTML实体编码、16进制Unicode</h2><h3 id="1-Unicode——汉字示例、字母示例、数字符号示例"><a href="#1-Unicode——汉字示例、字母示例、数字符号示例" class="headerlink" title="1.Unicode——汉字示例、字母示例、数字符号示例"></a>1.Unicode——汉字示例、字母示例、数字符号示例</h3><p><b>可以说Unicode与HTML实体编码是一个东西</b></p>
 
+<p>Unicode（统一码、万国码、单一码）是一种在计算机上使用的字符编码。Unicode 是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求。1990年开始研发，1994年正式公布。</p>
 
+<h3 id="2、HTML实体编码——示例与Unicode相同"><a href="#2、HTML实体编码——示例与Unicode相同" class="headerlink" title="2、HTML实体编码——示例与Unicode相同"></a>2、HTML实体编码——示例与Unicode相同</h3><p>
+    字符实体是用一个编号写入HTML代码中来代替一个字符，在使用浏览器访问网页时会将这个编号解析还原为字符以供阅读。
+</p>
+
+<p>这么做的目的主要有两个：
+１、解决HTML代码编写中的一些问题。例如需要在网页上显示小于号（<）和大于号（>），由于它们是HTML的预留标签，可能会被误解析。这时就需要将小于号和大于号写成字符实体：
+小于号这样写：< 或 <
+大于号这样写：> 或 >
+前面的写法称为实体名称，后面的写法则是实体编号。ISO-8859-1字符集（西欧语言）中两百多个字符设定了实体名称，而对于其它所有字符都可以用实体编号来代替。
+２、网页编码采用了特定语言的编码，却需要显示来自其它语言的字符。例如，网页编码采用了西欧语言ISO-8859-1，却要在网页中显示中文，这时必须将中文字符以实体形式写入HTML代码中。
+</p>
+
+<h3 id="3、16进制Unicode——示例-u8fd9-u662f-u4e00"><a href="#3、16进制Unicode——示例-u8fd9-u662f-u4e00" class="headerlink" title="3、16进制Unicode——示例\u8fd9\u662f\u4e00"></a>3、16进制Unicode——示例<code>\u8fd9\u662f\u4e00</code></h3><p><img src="/img/blog/c9ozt8bjbv.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+    <li><a target="_blank" rel="noopener" href="https://www.sojson.com/unicode.html">Unicode</a></li>
+    <li><a target="_blank" rel="noopener" href="http://www.msxindl.com/tools/unicode16.asp">16进制Unicode</li>
+    <li><a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/zifushiti.php">HTML字符实体</a></li>
+</ul>
+
+<h2 id="Escape编码-x2F-加密、Unescape解码-x2F-解密、-u编码、-u解码"><a href="#Escape编码-x2F-加密、Unescape解码-x2F-解密、-u编码、-u解码" class="headerlink" title="Escape编码&#x2F;加密、Unescape解码&#x2F;解密、%u编码、%u解码"></a>Escape编码&#x2F;加密、Unescape解码&#x2F;解密、%u编码、%u解码</h2><p><b>特征：以`%u`开头</b></p>
+
+<p>
+    <b>Escape/Unescape加密解码/编码解码,又叫%u编码</b>，从以往经验看编码字符串出现有"u"，它是unicode编码，那么Escape编码采用是那一种unicode实现形式呢。其实是UTF-16BE模式。这样一来问题非常简单了。 <b>Escape编码/加密</b>,就是字符对应UTF-16 16进制表示方式前面加%u。<b>Unescape解码/解密</b>，就是去掉"%u"后，将16进制字符还原后，由utf-16转码到自己目标字符。如：字符“中”，UTF-16BE是：“6d93”，因此Escape是“%u6d93”，反之也一样！因为目前%字符，常用作URL编码，所以%u这样编码已经逐渐被废弃了！
+<br>基本类型只对汉字进行编码，复杂类型是所有字符均可
+</p>
+
+<p><a href="(http://web.chacuo.net/charsetescape/)">加解密网站</a></p>
+
+<h2 id="URL、Hex编码"><a href="#URL、Hex编码" class="headerlink" title="URL、Hex编码"></a>URL、Hex编码</h2><p><b>这两种加密的密文是一样的，不同的是当你用url编码网站时是不会把http进行编码的，而Hex编码则全部转化了</b></p>encodeURIComponent() 函数 与 encodeURI() 函数的区别 请注意 encodeURIComponent() 函数 与 encodeURI() 函数的区别之处，前者假定它的参数是 URI 的一部分（比如协议、主机名、路径或查询字符串）。因此 encodeURIComponent() 函数将转义用于分隔 URI 各个部分的标点符号。
+
+<ul>
+    <li><a target="_blank" rel="noopener" href="https://www.107000.com/T-Hex">hex</li>
+    <li><a target="_blank" rel="noopener" href="https://www.sojson.com/encodeurl.html">URL</li>
+</ul>
+
+<h2 id="凯撒密码、维吉尼亚密码、栅栏密码基础型、栅栏密码W型"><a href="#凯撒密码、维吉尼亚密码、栅栏密码基础型、栅栏密码W型" class="headerlink" title="凯撒密码、维吉尼亚密码、栅栏密码基础型、栅栏密码W型"></a>凯撒密码、维吉尼亚密码、栅栏密码基础型、栅栏密码W型</h2><p>这几类密码原理都是移位调换加密，破解难度低</p>
+<h3 id="1、凯撒密码——示例iodj-khoor-zrug-123"><a href="#1、凯撒密码——示例iodj-khoor-zrug-123" class="headerlink" title="1、凯撒密码——示例iodj{khoor_zrug_123}"></a>1、凯撒密码——示例<code>iodj&#123;khoor_zrug_123&#125;</code></h3><p><strong>只对字母进行加密，常用于CTF比赛中</strong></p>
+<p>凯撒密码最早由古罗马军事统帅盖乌斯·尤利乌斯·凯撒在军队中用来传递加密信息，故称凯撒密码。此为一种位移加密手段，只对26个（大小写）字母进行位移加密，规则相当简单，容易被破解。下面是明文字母表移回3位的对比： 明文字母表 X Y Z A B C D E F G H I J K L M N O P Q R S T U V W 密文字母表 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 然后A变成D，B变成E，Z变成C。 字母最多可移动25位（按字母表）。通常为向后移动，如果您想向前移动1位，则相当于向后移动25位，位移选择为25位。</p>
+<h3 id="2、维吉尼亚密码——示例fmcg-iglmq-wptd-123"><a href="#2、维吉尼亚密码——示例fmcg-iglmq-wptd-123" class="headerlink" title="2、维吉尼亚密码——示例fmcg{iglmq_wptd_123}"></a>2、维吉尼亚密码——示例<code>fmcg&#123;iglmq_wptd_123&#125;</code></h3><p><strong>可以说是凯撒密码的加强版，引入了密钥</strong></p>
+<p>维吉尼亚密码，它将凯撒密码的所有26种排列放到一个表中，形成26行26列的加密字母表。此外，维吉尼亚密码必须有一个由字母组成的密钥，至少有一个字母，最多与明文字母有相同数量的字母。 在凯撒密码中，每个字母都会进行一定偏移值转换，例如，当偏移值是3时，则B被转换为E，C转换成F…。在维吉尼亚密码加密中，则是由具有不同偏移的凯撒密码构成的。 要生成密码，需要使用表格方法，此表(如图所示)包含26行字母表，每一行从上一行到左行被一位偏移。加密时使用哪一行字母表是基于密钥的，在加密过程中密钥会不断变化。 例如，假设明文为： BTTACKATDAFG 选择一个关键字并重复它以获得密钥，例如，当关键字是LIMN时，键是： LIMNLIMNLIMN 在明文中的第一个字母B，对应于密钥中的第一个字母L，使用加密字母表中的L行字母进行加密，得到第一个字母的密文M。同样，第二个明文字母是T，它用表中的I行加密，得到第二个密文B。通过类比，我们可以得到： 明文：BTTACKATDAFG 键：LIMNLIMNLIMN 密文：MBFNNSMGOIRT 解密的过程是加密的逆过程。例如，密钥的第一个字母对应的L行字母表，发现密文的第一个字母M位于B列，因此明文的第一个字母是B。密钥的第二个字母对应于I行字母表，而密文的第二个字母B位于该行的T列中，因此明文的第二个字母是T。等等，你可以得到明文。</p>
+<h3 id="3、栅栏密码基础型"><a href="#3、栅栏密码基础型" class="headerlink" title="3、栅栏密码基础型"></a>3、栅栏密码基础型</h3><p><strong>栅栏密码是按一定规则将明文内容互相调换了位置</strong></p>
+<p>栅栏密码(Rail fence Cipher)基础型加密方式，是一种简单的移动字符位置的加密方法，首先把加密的明文分成N个一组，然后把每组的第1、第2、第M个字符连起来，形成无规律的密文字符串。</p>
+<p>例如字符串“123456789abc”，首先将字符串分成3组，如下排列： 1234 5678 9abc 依次取每一组字符，组成加密后密文：“15926a37b48c”。</p>
+<h3 id="4、栅栏密码W型"><a href="#4、栅栏密码W型" class="headerlink" title="4、栅栏密码W型"></a>4、栅栏密码W型</h3><p>栅栏密码W型加密算法： 栅栏密码(Rail fence Cipher)，扩展变种W型，采用先把明文类似”W”形状进行排列，然后再按栏目顺序1-N，取每一栏的所有字符值，组成加密后密文。 比如字符串“123456789”，采用栏目数为3的时，明文将采用如下排列： 1—5—9 -2-4-6-8- –3—-7– 取每一栏所有字符串，组成加密后密文：“159246837”。 W型栅栏密码加密方式，比传统型栅栏密码加密方法，算法略有增强，但目前已只能用于学习算法验证。</p>
+<ul>
+    <li><a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/kaisamima.php">Caesar</a></li>
+    <li><a target="_blank" rel="noopener" href="http://www.metools.info/code/c71.html">Virginia</a></li>
+    <li><a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/zhalanmima.php">栅栏密码</li>
+    <li><a target="_blank" rel="noopener" href="http://www.atoolbox.net/Tool.php?Id=777">栅栏密码w</li>
+</ul>
+
+<h2 id="文本隐藏加密、零宽隐写"><a href="#文本隐藏加密、零宽隐写" class="headerlink" title="文本隐藏加密、零宽隐写"></a>文本隐藏加密、零宽隐写</h2><h3 id="1、文本隐藏加密"><a href="#1、文本隐藏加密" class="headerlink" title="1、文本隐藏加密"></a>1、文本隐藏加密</h3><p><strong>特征：加密过的密文会比原文的字节数多，当你按删除键的时候会发现某一处要按好多下才能把前面的字删掉</strong></p>
+<p>原理：它的原理是在密文中加入了不可见字符组成的编码，例如上述看似九个字符的一句话，通过<a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/zh/zishu-zijieshu/">字数查询</a>可知它实际上有87个字符，多出的字符是由<a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/zh/space.html">零宽空格</a>实现的编码，因为零宽空格不占据空间，所以看不出它的存在。</p>
+<p><strong>使用</strong>：在进行文本隐藏加密时，将需要隐藏的文字写在括号中，就像这样“你好（有才华），我好喜欢你（画的画）！”，然后加密即可隐藏括号内的文字。同时可以设定一个密码，这样只有知道密码的人才能解密隐藏的文字。密码可以是数字、字母和下划线，最多九位。</p>
+<h3 id="2、零宽隐写"><a href="#2、零宽隐写" class="headerlink" title="2、零宽隐写"></a>2、零宽隐写</h3><p><strong>特征：解密后明文与密文会分开显示，密文一般隐藏在第一个字后面，不信你试试，保证你十下之内删不完</strong></p>
+<p>与上面文本隐藏加密的原理一样，但过程不一样</p>
+<ul>
+    <li><a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/yincangjiami.php">文本隐写</a></li>
+    <li><a target="_blank" rel="noopener" href="https://yuanfux.github.io/zero-width-web/">零宽隐写</a></li>
+</ul>
+
+<h2 id="特殊暗号类加密"><a href="#特殊暗号类加密" class="headerlink" title="特殊暗号类加密"></a>特殊暗号类加密</h2><p>这类加密都是特征性比较强的，易辨别</p>
+<h3 id="1、猪圈密码"><a href="#1、猪圈密码" class="headerlink" title="1、猪圈密码"></a>1、猪圈密码</h3><p><strong>特点：只能对字母加解密并且符号无法复制，粘贴后会直接显示明文</strong></p>
+<p>猪圈密码（亦称朱高密码、共济会暗号、共济会密码或共济会员密码），是一种以格子为基础的简单替代式密码，曾经是美国内战时盟军使用的密码，目前仅在密码教学、各种竞赛中使用。</p>
+<p><img src="/img/blog/pighole.PNG" srcset="/img/loading.gif" lazyload></p>
+<h3 id="2、与佛论禅"><a href="#2、与佛论禅" class="headerlink" title="2、与佛论禅"></a>2、与佛论禅</h3><p><strong>特点：就是你看不懂的佛语</strong></p>
+<p>被折磨的过根本不用任何辨识哈哈哈</p>
+<h3 id="3、百家姓暗号"><a href="#3、百家姓暗号" class="headerlink" title="3、百家姓暗号"></a>3、百家姓暗号</h3><p><strong>特征：不要多说当你看到一串百家姓的时候多半就是这个暗号了</strong></p>
+<h3 id="4、卡尔达诺栅格码"><a href="#4、卡尔达诺栅格码" class="headerlink" title="4、卡尔达诺栅格码"></a>4、卡尔达诺栅格码</h3><p><strong>特征：把明文伪装成垃圾邮件</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.spammimic.com/">加密解密</a></p>
+<h3 id="5、莫尔斯电码"><a href="#5、莫尔斯电码" class="headerlink" title="5、莫尔斯电码"></a>5、莫尔斯电码</h3><p>这个也很有辨识度</p>
+<h3 id="6、Quoted-Printable"><a href="#6、Quoted-Printable" class="headerlink" title="6、Quoted-Printable"></a>6、Quoted-Printable</h3><p><strong>这种编码常用与邮件处理，只能对汉字进行编码，特征是&#x3D;加两个大写字母或数字组合</strong></p>
+<p><a target="_blank" rel="noopener" href="https://dencode.com/string/quoted-printable">加密解密</a></p>
+<p><img src="/img/blog/quoted-printable.PNG" srcset="/img/loading.gif" lazyload></p>
+<h3 id="7、ROT13"><a href="#7、ROT13" class="headerlink" title="7、ROT13"></a>7、ROT13</h3><p><strong>特征：它与凯撒密码差不多都是字母替换，你看到一句特别奇怪的语句可能就是它编码的</strong></p>
+<p>ROT13（回转13位，Template:lang，有时中间加了个减号称作ROT-13）是一种简易的置换暗码。它是一种在网路论坛用作隐藏八卦（spoiler）、妙句、谜题解答以及某些脏话的工具，目的是逃过版主或管理员的匆匆一瞥。 ROT13被描述成「杂志字谜上下颠倒解答的Usenet对等体」（Usenet equivalent of a magazine printing the answer to a quiz upside down.）Template:cite web ROT13也是过去在古罗马开发的凯撒加密的一种变体。</p>
+<h3 id="8、文本加密为汉字"><a href="#8、文本加密为汉字" class="headerlink" title="8、文本加密为汉字"></a>8、文本加密为汉字</h3><p><strong>特征：将明文加密成各种繁体字后面带俩等号</strong></p>
+<h2 id="js专用加密"><a href="#js专用加密" class="headerlink" title="js专用加密"></a>js专用加密</h2><p>也是辨识度极为明显</p>
+<h3 id="1、颜文字js加密"><a href="#1、颜文字js加密" class="headerlink" title="1、颜文字js加密"></a>1、颜文字js加密</h3><p><strong>特征：一堆颜文字构成的js代码，在F12中可直接解密执行</strong></p>
+<h3 id="2、jother编码"><a href="#2、jother编码" class="headerlink" title="2、jother编码"></a>2、jother编码</h3><p><strong>特征：只用<code>! + ( ) [ ] &#123; &#125;</code>这八个字符就能完成对任意字符串的编码。也可在F12中解密执行</strong></p>
+<h3 id="3、JSFuck编码"><a href="#3、JSFuck编码" class="headerlink" title="3、JSFuck编码"></a>3、JSFuck编码</h3><p><strong>特征：与jother很像，只是少了<code>&#123; &#125;</code></strong></p>
 <p>hello <a href="http://example.com/2022/04/13/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%AF%86%E6%96%87%E7%89%B9%E5%BE%81%E5%88%86%E6%9E%90/">http://example.com/2022/04/13/加密编码类型的密文特征分析/</a> bye</p>
 
               
