@@ -32,9 +32,9 @@
 <meta property="og:image" content="http://example.com/img/blog/jiexiqi_2.PNG">
 <meta property="og:image" content="e:/third_test/source/img/blog/TCP_IP.PNG">
 <meta property="og:image" content="e:/third_test/source/img/blog/flex.PNG">
-<meta property="og:image" content="e:/third_test/source/img/blog/tcp.PNG">
+<meta property="og:image" content="http://example.com/img/blog/tcp.PNG">
 <meta property="article:published_time" content="2022-04-15T07:36:30.000Z">
-<meta property="article:modified_time" content="2022-04-18T11:16:55.132Z">
+<meta property="article:modified_time" content="2022-04-18T13:36:31.026Z">
 <meta property="article:author" content="s1nb4d">
 <meta property="article:tag" content="InternetBase">
 <meta name="twitter:card" content="summary_large_image">
@@ -338,7 +338,7 @@
 <p>使用的原理是用缓存区对接受的帧进行缓存并处理，之后在返送ACK</p>
 <h4 id="接收-HTTP-响应消息"><a href="#接收-HTTP-响应消息" class="headerlink" title="接收 HTTP 响应消息"></a>接收 HTTP 响应消息</h4><p>浏览器在委托协议栈发送请求消息之后，会调用 read 程序,来获取响应消息。然后，控制流程会通过 read 转移到协议 栈 ，然后协议栈会执行接下来的操作。和发送数据一样，<strong>接收数据也需要 将数据暂存到接收缓冲区中</strong>，这里的操作过程如下。首先，协议栈尝试从 接收缓冲区中取出数据并传递给应用程序，但这个时候请求消息刚刚发送 出去，<strong>响应消息可能还没返回</strong>。响应消息的返回还需要等待一段时间，因 此这时接收缓冲区中并没有数据，那么接收数据的操作也就无法继续。这 时，协议栈会将应用程序的委托，也就是从接收缓冲区中取出数据并传递 给应用程序的工作<strong>暂时挂起</strong> ，等服务器返回的响应消息到达之后再继续执 行接收操作</p>
 <h4 id="数据发送完毕后断开连接"><a href="#数据发送完毕后断开连接" class="headerlink" title="数据发送完毕后断开连接"></a>数据发送完毕后断开连接</h4><p>调用close函数，首先一端先返回FIN码为一然后最后发送ACK码进行ACK码校验，另一端也是先返送FIN为一然后也发送ACK码进行校验，如果有没有接收到的包就继续等待一段时间，然后断开链接</p>
-<h4 id="TCP整体流程"><a href="#TCP整体流程" class="headerlink" title="TCP整体流程"></a>TCP整体流程</h4><img src="E:\third_test\source\img\blog\tcp.PNG" srcset="/img/loading.gif" lazyload style="zoom:60%;" />
+<h4 id="TCP整体流程"><a href="#TCP整体流程" class="headerlink" title="TCP整体流程"></a>TCP整体流程</h4><img src="/img/blog/tcp.PNG" srcset="/img/loading.gif" lazyload style="zoom:60%;" />
 
 
 
