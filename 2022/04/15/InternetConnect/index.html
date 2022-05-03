@@ -34,7 +34,7 @@
 <meta property="og:image" content="e:/third_test/source/img/blog/flex.PNG">
 <meta property="og:image" content="http://example.com/img/blog/tcp.PNG">
 <meta property="article:published_time" content="2022-04-15T07:36:30.000Z">
-<meta property="article:modified_time" content="2022-04-18T13:36:31.026Z">
+<meta property="article:modified_time" content="2022-04-18T13:57:44.147Z">
 <meta property="article:author" content="s1nb4d">
 <meta property="article:tag" content="InternetBase">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3.4k 字
+          3.6k 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
           <!-- compatible with older versions-->
-          29 分钟
+          31 分钟
         
       </span>
     
@@ -340,8 +340,10 @@
 <h4 id="数据发送完毕后断开连接"><a href="#数据发送完毕后断开连接" class="headerlink" title="数据发送完毕后断开连接"></a>数据发送完毕后断开连接</h4><p>调用close函数，首先一端先返回FIN码为一然后最后发送ACK码进行ACK码校验，另一端也是先返送FIN为一然后也发送ACK码进行校验，如果有没有接收到的包就继续等待一段时间，然后断开链接</p>
 <h4 id="TCP整体流程"><a href="#TCP整体流程" class="headerlink" title="TCP整体流程"></a>TCP整体流程</h4><img src="/img/blog/tcp.PNG" srcset="/img/loading.gif" lazyload style="zoom:60%;" />
 
-
-
+<h3 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h3><h4 id="包"><a href="#包" class="headerlink" title="包"></a>包</h4><p>包的结构包括头部和数据两部分，头部用来识别各个协议的相当于通行证，数据是真是想要发送的数据</p>
+<p>头部包括有TCP头部IP头部MAC头部</p>
+<h4 id="ARP查询目标路由器的MAC地址"><a href="#ARP查询目标路由器的MAC地址" class="headerlink" title="ARP查询目标路由器的MAC地址"></a>ARP查询目标路由器的MAC地址</h4><p>ARP通过广播的方法对MAC地址进行查询</p>
+<h4 id="将IP包通过光电信号发送出去"><a href="#将IP包通过光电信号发送出去" class="headerlink" title="将IP包通过光电信号发送出去"></a>将IP包通过光电信号发送出去</h4><p>网卡驱动程序驱动网卡，将数据从缓存区取出，加上MAC协议，用PHY将光电信号发送出去</p>
 <p>hello <a href="http://example.com/2022/04/15/InternetConnect/">http://example.com/2022/04/15/InternetConnect/</a> bye</p>
 
               
